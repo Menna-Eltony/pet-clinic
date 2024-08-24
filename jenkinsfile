@@ -23,9 +23,11 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 script {
-
                     sh '''
-                    docker run -d -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 postgres:16.3
+                    pdocker rm ostgres:16.3
+                    '''
+                    sh '''
+                    docker run -d --name postgres -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 postgres:16.3
                     '''
                     sh '''
                     docker run -p 8082:8082 --name petclinic-app ${APP_IMAGE}:${APP_TAG}
