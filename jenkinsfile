@@ -1,0 +1,67 @@
+pipeline {
+    agent {
+        docker { 
+            image 'your-dockerhub-username/my-jenkins-agent'
+            reuseNode true
+        }
+    }
+    environment {
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+        APP_IMAGE = 'petclinic-app'
+        APP_TAG = 'latest'
+        POSTGRES_IMAGE = 'postgres'
+        POSTGRES_TAG = 'latest'
+    }
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh '''
+                    docker build -t ${APP_IMAGE}:${APP_TAG} .
+                    '''
+                }
+            }
+        }
+        stage('Deploy Application') {
+            steps {
+                script {
+                    // Create a Docker Compose file dynamically
+                    writeFile file: "${DOCKER_COMPOSE_FILE}", text: """
+                    version: '3.8'
+                    services:
+                      postgres:
+                        image: ${POSTGRES_IMAGE}:${POSTGRES_TAG}
+                        environment:
+                          POSTGRES_DB: petclinic
+                          POSTGRES_USER: petclinic
+                          POSTGRES_PASSWORD: petclinic
+                        ports:
+                          - "5432:5432"
+                      app:
+                        image: ${APP_IMAGE}:${APP_TAG}
+                        depends_on:
+                          - postgres
+                        ports:
+                          - "8080:8080"
+                        environment:
+                          SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/petclinic
+                          SPRING_DATASOURCE_USERNAME: petclinic
+                          SPRING_DATASOURCE_PASSWORD: petclinic
+                    """
+                    // Deploy the containers using Docker Compose
+                    sh '''
+                    docker-compose -f ${DOCKER_COMPOSE_FILE} up -d
+                    '''
+                }
+            }
+        }
+    }
+    post {
+        always {
+            script {
+                // Clean up Docker resources if needed
+                sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} down'
+            }
+        }
+    }
+}
