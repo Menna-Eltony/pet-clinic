@@ -1,8 +1,8 @@
 pipeline {
     agent {
-        docker { 
-            image 'your-dockerhub-username/my-jenkins-agent'
-            reuseNode true
+        docker {
+            image 'mennaeltouny/jenkins-dind-agent:latest'
+            args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
     environment {
