@@ -15,9 +15,6 @@ pipeline {
                     git clone https://github.com/spring-projects/spring-petclinic.git
                     '''
                     sh '''
-                    chmod +x mvnw
-                    '''
-                    sh '''
                     docker build -t ${APP_IMAGE}:${APP_TAG} .
                     '''
                 }
