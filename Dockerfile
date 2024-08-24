@@ -3,7 +3,7 @@ FROM maven:3.9.7-amazoncorretto-17 AS builder
 # Set the working directory inside the container
 WORKDIR /app
 # Copy the source code and build the application and config postgres
-COPY . .
+COPY ./spring-petclinic .
 RUN ./mvnw package -DskipTests -Dspring-boot.run.profiles=postgres
 # Stage 2: Create a minimal runtime image ,pull base image
 FROM amazoncorretto:17
