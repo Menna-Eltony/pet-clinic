@@ -12,6 +12,12 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    git clone https://github.com/spring-projects/spring-petclinic.git
+                    '''
+                    sh '''
+                    cd spring-petclinic
+                    '''
+                    sh '''
                     docker build -t ${APP_IMAGE}:${APP_TAG} .
                     '''
                 }
