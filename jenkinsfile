@@ -24,9 +24,6 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker rm -f $(docker ps -a -q)
-                    '''
-                    sh '''
                     docker run -d --name postgres-pet -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 postgres:16.3
                     '''
                     sh '''
