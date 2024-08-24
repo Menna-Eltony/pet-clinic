@@ -18,6 +18,6 @@ ENV SPRING_PROFILES_ACTIVE=postgres
 ENV POSTGRES_DB=petclinic
 ENV POSTGRES_USER=petclinic
 ENV POSTGRES_PASSWORD=petclinic
-ENV POSTGRES_URL=jdbc:postgresql://192.168.225.128:5432/petclinic
+ENV POSTGRES_URL=jdbc:postgresql://192.168.205.128:5432/petclinic
 # Command to run the application,java run file jar
 CMD ["java", "-jar", "/app/app.jar"]
