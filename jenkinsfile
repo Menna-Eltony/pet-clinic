@@ -12,6 +12,9 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    chmod +x mvnw
+                    '''
+                    sh '''
                     docker build -t ${APP_IMAGE}:${APP_TAG} .
                     '''
                 }
