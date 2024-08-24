@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'mennaeltouny/jenkins-dind-agent:latest'
-            args '--privileged -v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
     environment {
         DOCKER_COMPOSE_FILE = 'docker-compose.yml'
         APP_IMAGE = 'petclinic-app'
@@ -42,7 +37,7 @@ pipeline {
                         depends_on:
                           - postgres
                         ports:
-                          - "8080:8080"
+                          - "8082:8082"
                         environment:
                           SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/petclinic
                           SPRING_DATASOURCE_USERNAME: petclinic
