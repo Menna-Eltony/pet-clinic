@@ -25,11 +25,11 @@ pipeline {
                 script {
                     sh '''
                     //docker run -d --name postgres-pet -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 postgres:16.3
-                    docker start postgre-pet
+                    docker start postgres-pet
                     '''
                     sh '''
-                    //docker run -d -p 8082:8082 --name petclinic-app ${APP_IMAGE}:${APP_TAG}
-                    docker start petclinic-app
+                    docker run -d -p 8082:8082 --name petclinic ${APP_IMAGE}:${APP_TAG}
+                    //docker start petclinic-app
                     '''
                 }
             }
