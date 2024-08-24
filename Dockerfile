@@ -20,4 +20,4 @@ ENV POSTGRES_USER=petclinic
 ENV POSTGRES_PASSWORD=petclinic
 ENV POSTGRES_URL=jdbc:postgresql://192.168.225.128:5432/petclinic
 # Command to run the application,java run file jar
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "/app/app.jar"]
