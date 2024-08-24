@@ -54,12 +54,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            script {
-                // Clean up Docker resources if needed
-                sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} down'
-            }
-        }
-    }
 }
