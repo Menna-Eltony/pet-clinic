@@ -12,6 +12,9 @@ pipeline {
             steps {
                 script {
                     sh '''
+                    git clone https://github.com/spring-projects/spring-petclinic.git
+                    '''
+                    sh '''
                     chmod +x mvnw
                     '''
                     sh '''
