@@ -36,6 +36,9 @@ pipeline {
                     sh '''
                     docker run -d -p 8082:8082 --name petclinic-app ${APP_IMAGE}:${APP_TAG}
                     '''
+                    sh '''
+                    docker ps
+                    '''
                 }
             }
         }
