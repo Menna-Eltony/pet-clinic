@@ -9,7 +9,7 @@ pipeline {
     }
     stages {
         stage('Build Docker Image') {
-            steps {
+//            steps {
 //                script {
 //                    sh '''
 //                    git clone https://github.com/spring-projects/spring-petclinic.git
@@ -18,7 +18,7 @@ pipeline {
 //                    docker build -t ${APP_IMAGE}:${APP_TAG} .
 //                    '''
 //                }
-            }
+//            }
         }
         stage('Deploy Application') {
             steps {
