@@ -10,14 +10,14 @@ FROM amazoncorretto:17
 # Set the working directory inside the container
 WORKDIR /app
 # Copy the JAR file artifact from the build stage
-COPY --from=builder /app/target/spring-petclinic-*.jar app.jar
+COPY --from=builder /app/target/spring-petclinic-*.jar /app/app.jar
 # Expose the port that the application will run on
-EXPOSE 8080
+EXPOSE 8082
 #enviroment variables to connect the application to the database
 ENV SPRING_PROFILES_ACTIVE=postgres
 ENV POSTGRES_DB=petclinic
 ENV POSTGRES_USER=petclinic
 ENV POSTGRES_PASSWORD=petclinic
-ENV POSTGRES_URL=jdbc:postgresql://192.168.225.129:5432/petclinic
+ENV POSTGRES_URL=jdbc:postgresql://192.168.225.128:5432/petclinic
 # Command to run the application,java run file jar
 CMD ["java", "-jar", "app.jar"]
